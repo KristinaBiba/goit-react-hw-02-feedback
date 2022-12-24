@@ -1,5 +1,7 @@
 import { Title } from "./Section_css";
 
+import PropTypes from 'prop-types';
+
 export const Section = ({ title, children }) => {
     return (
         <section>
@@ -7,4 +9,8 @@ export const Section = ({ title, children }) => {
             {children}
         </section>);
 }
-          
+
+Section.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node,
+}
