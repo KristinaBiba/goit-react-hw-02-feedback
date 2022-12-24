@@ -1,5 +1,31 @@
 import { Component } from "react"
 
+import styled from "styled-components"
+
+const Title = styled.h2`
+  padding: 16px;
+    font-size: 32px;
+  `;
+
+const Button = styled.button`
+  width: 200px;
+  height: 100px;
+  padding: 4px;
+  margin: 8px;
+  color: white;
+  font-size: 24px;
+  text-transform: uppercase;
+  background-color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  `;
+
+  const P = styled.p`
+  padding: 4px;
+  margin: 8px;
+   text-transform: uppercase;
+  font-size: 24px;`;
+
 export class App extends Component {
   state = {
     good: 0,
@@ -15,8 +41,6 @@ export class App extends Component {
     return (Object.values(this.state)).reduce((acc, item) => {return acc + item}, 0)
   }
   countPositiveFeedbackPercentage = () => {
-    console.log(this.state.good);
-
     return (Math.round(this.state.good / this.countTotalFeedback() * 100) ) || 0;
   }
 
@@ -25,27 +49,26 @@ export class App extends Component {
 
     const StateBtn = ({ btnName }) => {
         return (
-          Object.keys(btnName).map(item => (<button type="button" key={item} id={item} onClick={this.handleFidback}>{item}</button>)) )
+          Object.keys(btnName).map(item => (<Button type="button" key={item} id={item} onClick={this.handleFidback}>{item}</Button>)) )
     };
     
     const StatisticList = ({ statistics }) => {
-      console.log(statistics);
       return (
-           (Object.entries(statistics)).map((statisticEl) => (<p key={statisticEl[0]}>{statisticEl[0]}: <b>{statisticEl[1]}</b></p>))
+           (Object.entries(statistics)).map((statisticEl) => (<P key={statisticEl[0]}>{statisticEl[0]}: <b>{statisticEl[1]}</b></P>))
       )
     };
 
     return (
       <>
-        <h2>Please leave feedback</h2>
+        <Title>Please leave feedback</Title>
 
         <StateBtn btnName={this.state}></StateBtn>
         
-        <h2>Statistics</h2>
+        <Title>Statistics</Title>
 
         <StatisticList statistics={this.state}></StatisticList>
-        <p>Total:  <b>{this.countTotalFeedback()}</b></p>
-        <p>positiveFeedback:  <b>{this.countPositiveFeedbackPercentage()}%</b></p>
+        <P>Total:  <b>{this.countTotalFeedback()}</b></P>
+        <P>positiveFeedback:  <b>{this.countPositiveFeedbackPercentage()}%</b></P>
         
       </>
     );
